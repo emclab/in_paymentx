@@ -1,0 +1,48 @@
+<div class="pagination"><%= will_paginate models %></div>
+<% if false %>
+<%= render inline: ERB.new(@erb_code).result(binding) %>
+<% else %>
+<table class="table table-striped">
+  <tr>
+    <th>#</th>
+    <th><%= t('Contract#') %></th>
+    <th><%= t('Paid Amount') %></th>
+    <th><%= t('Payment Via') %></th>
+    <th><%= t('Brief Note') %></th>
+    <th><%= t('Received By') %></th>
+    <th><%= t('Received Date') %></th>
+    <th><%= t('Last Updated By') %></th>
+    <th></th>
+  </tr>
+<% models.each do |r| %>
+  <tr>
+    
+    <td><%= prt(r, :id) %></td>
+  	<% if has_action_right?('show', InPaymentx.contract_resource, InPaymentx.contract_class.find_by_id(r.contract_id) ) %>
+  	  <td><%= link_to r.contract_id.to_s, SUBURI + "/authentify/view_handler?index=1&url=#{SUBURI + CGI::escape(eval(InPaymentx.show_contract_path))}"  %></td>
+  	<% else %>
+  	  <td><%= prt(r, 'contract_id') %></td>
+  	<% end %>  
+    <td><%= number_with_precision(prt(r, :paid_amount), :precision => 2) %></td>
+    <td><%= prt(r, :payment_via) %></td>
+    <td><%= prt(r, :brief_note) %></td>
+    <td><%= prt(r, 'received_by.name') %></td>
+    <td><%= prt(r, :received_date).strftime('%Y/%m/%d') %></td>
+    <td><%= prt(r, 'last_updated_by.name') %></td>
+
+    <td><%= link_to t('Edit'), SUBURI + "/authentify/view_handler?index=1&url=#{CGI::escape(edit_payment_path(r, :contract_id => r.contract_id, :project_id => r.project_id, :parent_record_id => r.contract_id, :parent_resource => InPaymentx.contract_resource))}", :class => BUTTONS_CLS['action']  if has_action_right?('update', params[:controller], r) %></td>
+   </tr>
+<% end %>
+</table>
+<table class="table table-striped">
+  <tr>
+    <th>
+    	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        <%= link_to t('Back'), SUBURI + "/authentify/view_handler?index=0", :class => BUTTONS_CLS['action']  %>
+    	<%#= link_to t('Search Payment'), SUBURI + "/authentify/view_handler?index=1&url=#{search_payments_path}", :class => BUTTONS_CLS['action'] %>
+    	<%= link_to t('New Payment'), SUBURI + "/authentify/view_handler?index=1&url=#{CGI::escape(new_payment_path(:contract_id => @contract.id, :project_id => @project.id, :parent_record_id => @contract.id, :parent_resource => InPaymentx.contract_resource))}", :class => BUTTONS_CLS['action'] if @contract && @project && has_action_right?('create', params[:controller], InPaymentx.contract_class.find_by_id(@contract.id)) %>
+    </th>
+  </tr>
+</table>
+<% end %>
+

@@ -1,0 +1,39 @@
+<div id="main_body">
+<% if false %>	
+<%= render inline: ERB.new(@erb_code).result(binding) %>
+<% else %>
+<h4><%= t(@title) %></h4>
+
+<p>
+  <b><%= t('Contract Id') %></b>
+  <%= @contract.id %>
+</p>
+<p>
+  <b><%= t('Paid Amount') %></b>
+  <%= number_with_precision(@payment.paid_amount, :precision => 2) %>
+</p>
+<p>
+  <b><%= t('Payment Via') %></b>
+  <%= @payment.payment_via %>
+</p>
+
+<p>
+  <b><%= t('Received Date') %></b>
+  <%= @payment.received_date %>
+</p>
+<p>
+  <b><%= t('Received By') %></b>
+  <%= @payment.received_by.name %>
+</p>
+<p>
+  <b><%= t('Last Updated By') %></b>
+  <%= @payment.last_updated_by.name %>
+</p>
+<p>
+    <b><%= t('Brief Note') %></b>
+    <%= @payment.brief_note %>
+  </p>
+<%= link_to t('Back'), SUBURI + "/authentify/view_handler?index=0", :id => 'close', :class => BUTTONS_CLS['action'] %>
+<% end %>
+
+</div>

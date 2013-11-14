@@ -1,0 +1,105 @@
+# Sample localization file for English. Add more files in this directory for other locales.
+# See https://github.com/svenfuchs/rails-i18n/tree/master/rails%2Flocale for starting points.
+  
+zh-CN:
+  hello: ' Chinese Hello world '
+  home: '大本营'
+  user: '用户'
+  help: '帮助'
+  privacy_policy: '隐私条例'
+  terms_of_service: '服务条例'
+  email: '电邮' 
+  zone: '区域'
+  Email: '电邮'
+  true: '是'
+  True: '是'
+  false: '否'
+  False: '否'
+  'Yes' : '是'
+  'No'  : '否'
+  'yes' : '是'
+  'no'  : '否'
+  
+  #Projectx
+  '#' : '#'
+  Successfully Saved! : '已保存！'
+  Successfully Updated! : '已更新！'
+  'Data Error. Not Saved!' : '数据错误。无法保存！'
+  'Data Error. Not Updated!' : '数据错误。无法更新！'
+  
+  Paid out              : '付清?'
+  Paid Out?             : '付清?'
+  
+  Payments              : '收款'
+  New Payment           : '新收款'
+  Edit Payment          : '更改收款'
+  Payment Info          : '收款内容'
+  Payment Search        : '收款搜索'
+  Payment Search Results : '收款搜索结果s'
+  
+  Project Name          : '项目名称'
+  
+  Date                  : '日期'
+  
+  Contract              : '合同'
+  Sales                 : '业务员'
+  Completion %          : '完成 %'
+  Payment %             : '付款%'
+  Create Date           : '生成日期'
+  Edit                  : '编辑'
+  Task Request Name     : '任务申请名称'
+  New Project           : '新项目'
+  Search                : '搜索'
+  Stats                 : '统计'
+  Keyword               : '关键字'
+  Select Sales          : '选择业务'
+  Choose Customer       : '选择客户'
+  Submit                : '保存'
+  Back                  : '返回'
+  Name                  : '名称'
+  Log                   : '记录内容'
+  New Log               : '新记录log'
+  
+  Last Updated By       : '更改人'
+  New Payment           : '新收款'
+  
+  Brief Note            : '简注'
+  
+  'Contract#'           : '合同#'
+  Paid Amount           : '已付款额'
+  Payment Type          : '支付方式'
+  Payment Amount        : '付款金额（￥）'
+  'Payment#'            : '支付#'
+  Payment Description   : '收款说明'
+  Received By           : '收款人'
+  Received Date         : '收款日期'
+  
+  Search Payment        : '搜索收款'
+  
+  Instructions          : '指示'
+  Active                : '有效'
+  Ranking               : '序列#'
+  Ranking Index         : '序列#'
+  Save                  : '保存'
+  
+  Completed             : '完成'
+  RequestedBy           : '申请人'
+  LastUpdatedBy         : '更改'
+  EnteredBy             : '输入'
+  
+  Duplicate Name! : '名字重复！'
+  
+  Payment Total($) : '收款总额（￥）'
+  
+  Dates : '时段'
+  Payment Total : '付款总额（￥）'
+  Choose Customer : '选择客户'
+  Payment Received By : '收款人'
+  Status : '状态'
+  Customer Id : '客户#'
+  Sales Id : '业务员#'  
+  Week : '周'
+  Month : '月'
+  Quarter : '季'
+  Year : '年'
+
