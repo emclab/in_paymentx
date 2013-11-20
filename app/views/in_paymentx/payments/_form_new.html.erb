@@ -1,3 +1,7 @@
+<% if false %>
+  <%= render inline: ERB.new(@erb_code).result(binding) %>
+  
+  <% else %>
 <%= simple_form_for(@payment) do |f| %>
     <%= f.input :project_name, :label => t('Project Name'), :readonly => true, :input_html => {:value => @project.try('name')} %>
     <%= f.input :contract_id, :label => t('Contract#'), :readonly => true %>
@@ -13,4 +17,5 @@
     <%= f.button :submit, t('Save'), :class => BUTTONS_CLS['action'] %>
 <% end %>
 
+<% end %>
 

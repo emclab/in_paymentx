@@ -1,7 +1,9 @@
+<% if false %>
+  <%= render inline: ERB.new(@erb_code).result(binding) %>
+  
+  <% else %>
 <div id="main_body">
-<% if false %>	
-<%= render inline: ERB.new(@erb_code).result(binding) %>
-<% else %>
+
 <h4><%= t(@title) %></h4>
 
 <p>
@@ -34,6 +36,7 @@
     <%= @payment.brief_note %>
   </p>
 <%= link_to t('Back'), SUBURI + "/authentify/view_handler?index=0", :id => 'close', :class => BUTTONS_CLS['action'] %>
-<% end %>
 
 </div>
+
+<% end %>

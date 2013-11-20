@@ -1,3 +1,7 @@
+<% if false %>
+  <%= render inline: ERB.new(@erb_code).result(binding) %>
+  
+  <% else %>
 <div class="pagination"><%= will_paginate models %></div>
 <% if false %>
 <%= render inline: ERB.new(@erb_code).result(binding) %>
@@ -44,5 +48,7 @@
     </th>
   </tr>
 </table>
+<% end %>
+
 <% end %>
 
