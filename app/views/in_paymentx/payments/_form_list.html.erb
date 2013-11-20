@@ -3,9 +3,7 @@
   
   <% else %>
 <div class="pagination"><%= will_paginate models %></div>
-<% if false %>
-<%= render inline: ERB.new(@erb_code).result(binding) %>
-<% else %>
+
 <table class="table table-striped">
   <tr>
     <th>#</th>
@@ -48,7 +46,6 @@
     </th>
   </tr>
 </table>
-<% end %>
 
 <% end %>
 
