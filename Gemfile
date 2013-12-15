@@ -18,6 +18,7 @@ gem 'kustomerx', :path => '../kustomerx'
 gem 'template_taskx', :path => '../template_taskx'
 gem 'task_templatex', :path => '../task_templatex'
 gem 'simple_typex', :path => '../simple_typex'
+gem 'searchx', :path => '../searchx'
 # Declare any dependencies that are still in development here instead of in
 # your gemspec. These might include edge Rails or gems from your path or
 # Git. Remember to move these dependencies to your gemspec before releasing

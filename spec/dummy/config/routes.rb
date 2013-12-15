@@ -9,6 +9,7 @@ Rails.application.routes.draw do
   mount TemplateTaskx::Engine => '/taskx'
   mount TaskTemplatex::Engine => '/templatex'
   mount SimpleTypex::Engine => '/simple_typex'
+  mount Searchx::Engine => '/searchx'
   
   resource :session
   
