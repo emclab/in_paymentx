@@ -43,8 +43,6 @@ zh-CN:
   
   Contract              : '合同'
   Sales                 : '业务员'
-  Completion %          : '完成 %'
-  Payment %             : '付款%'
   Create Date           : '生成日期'
   Edit                  : '编辑'
   Task Request Name     : '任务申请名称'
@@ -67,7 +65,7 @@ zh-CN:
   
   'Contract#'           : '合同#'
   Paid Amount           : '已付款额'
-  Payment Type          : '支付方式'
+  Payment Via          : '支付方式'
   Payment Amount        : '付款金额（￥）'
   'Payment#'            : '支付#'
   Payment Description   : '收款说明'
