@@ -4,13 +4,13 @@
   <% else %>
 <%= simple_form_for(@payment) do |f| %>
     <%= f.input :project_name, :label => t('Project Name'), :readonly => true, :input_html => {:value => @project.try('name')} %>
-    <%= f.input :contract_id, :label => t('Contract#'), :readonly => true %>
+    <%= f.input :contract_id, :label => t('Contract#'), :readonly => true, :input_html => {:value => @contract.id} %>
     <%= f.input :received_date, :label => t('Received Date'), :as => :string %>
     <%= f.input :paid_amount, :label => t('Payment Amount') %>
     <%= f.input :payment_via, :label => t('Payment Via'), :collection => find_config_const('payment_via', 'in_paymentx').split(",").map(&:strip), :include_blank => true %>
     <%= f.input :received_by_id, :label => t('Received By'), :collection => Authentify::UsersHelper.return_users('create', 'in_paymentx_payments'), :include_blank => true %>
-    <%= f.input :contract_id, :as => :hidden %>
-    <%= f.input :project_id, :as => :hidden %>
+    <%= f.input :contract_id, :as => :hidden, :input_html => {:value => @contract.id} %>
+    <%= f.input :project_id, :as => :hidden, :input_html => {:value => @project.id} %>
     <%= f.input :brief_note,:label => t('Brief Note'), :input_html => {:rows => 2} %>
 
     <%= link_to t('Back'), SUBURI + "/authentify/view_handler?index=0", :class => BUTTONS_CLS['action']  %>
