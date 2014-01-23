@@ -11,7 +11,7 @@
     <%= f.input :received_date, :label => t('Received Date'), :as => :string %>
     <%= f.input :contract_id, :as => :hidden %>
     <%= f.input :project_id, :as => :hidden %>
-	<%= f.input :payment_via, :label => t('Payment Via'), :collection => find_config_const('payment_via', 'in_paymentx').split(",") %>
+	<%= f.input :payment_via, :label => t('Payment Via'), :collection => find_config_const('payment_via').split(",") %>
     
     <%= link_to t('Back'), SUBURI + "/authentify/view_handler?index=0", :class => BUTTONS_CLS['action']  %>
     <%= f.button :submit, t('Save'), :class => BUTTONS_CLS['action'] %>

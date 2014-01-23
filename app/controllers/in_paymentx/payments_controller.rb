@@ -28,6 +28,9 @@ module InPaymentx
       if @payment.save
         redirect_to URI.escape(SUBURI + "/authentify/view_handler?index=0&msg=Successfully Saved!")
       else
+        #for render new when data error
+        @contract = InPaymentx.contract_class.find_by_id(params[:payment][:contract_id]) if params[:payment].present? && params[:payment][:contract_id].present? 
+        @project = InPaymentx.project_class.find_by_id(params[:payment][:project_id]) if params[:payment].present? && params[:payment][:project_id].present? 
         flash[:notice] = t('Data Error. Not Saved!')
         render 'new'
       end
@@ -62,9 +65,7 @@ module InPaymentx
       @project = InPaymentx.project_class.find_by_id(params[:project_id]) if params[:project_id].present? 
       @contract = InPaymentx.contract_class.find_by_id(InPaymentx::Payment.find_by_id(params[:id]).contract_id) if params[:id].present? 
       @project = InPaymentx.project_class.find_by_id(InPaymentx::Payment.find_by_id(params[:id]).project_id) if params[:id].present? 
-      #for render new when data error
-      @contract = InPaymentx.contract_class.find_by_id(params[:payment][:contract_id]) if params[:payment].present? && params[:payment][:contract_id].present? 
-      @project = InPaymentx.project_class.find_by_id(params[:payment][:project_id]) if params[:payment].present? && params[:payment][:project_id].present? 
+      
     end
 
   end
