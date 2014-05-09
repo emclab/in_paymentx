@@ -19,6 +19,7 @@ module InPaymentx
     def new
       @title = t('New Payment')
       @payment = InPaymentx::Payment.new
+      @erb_code = find_config_const('payment_new_view', 'in_paymentx')
     end
 
 
@@ -31,6 +32,7 @@ module InPaymentx
         #for render new when data error
         @contract = InPaymentx.contract_class.find_by_id(params[:payment][:contract_id]) if params[:payment].present? && params[:payment][:contract_id].present? 
         @project = InPaymentx.project_class.find_by_id(params[:payment][:project_id]) if params[:payment].present? && params[:payment][:project_id].present? 
+        @erb_code = find_config_const('payment_new_view', 'in_paymentx')
         flash[:notice] = t('Data Error. Not Saved!')
         render 'new'
       end
@@ -39,6 +41,7 @@ module InPaymentx
     def edit
       @title = t('Edit Payment')
       @payment = InPaymentx::Payment.find_by_id(params[:id])
+      @erb_code = find_config_const('payment_edit_view', 'in_paymentx')
     end
 
     def update
@@ -47,6 +50,7 @@ module InPaymentx
       if @payment.update_attributes(params[:payment], :as => :role_update)
         redirect_to URI.escape(SUBURI + "/authentify/view_handler?index=0&msg=Successfully Updated!")
       else
+        @erb_code = find_config_const('payment_edit_view', 'in_paymentx')
         flash[:notice] = t('Data Error. Not Updated!')
         render 'edit'
       end
