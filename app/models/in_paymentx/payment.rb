@@ -26,8 +26,14 @@ module InPaymentx
 
     validates :paid_amount, :presence => true,
                             :numericality => {:greater_than_or_equal_to => 0}                            
-    validates_presence_of :received_by_id, :received_date, :payment_via
-    validates :contract_id, :project_id, :presence => true,
-                                         :numericality => {:greater_than => 0}
+    validates :received_by_id, :received_date, :payment_via, :presence => true
+    validates :contract_id, :presence => true, :numericality => {:greater_than => 0}
+    validates :project_id, :numericality => {:greater_than => 0}, :if => 'project_id.present?'
+    validate :dynamic_validate 
+    
+    def dynamic_validate
+      wf = Authentify::AuthentifyUtility.find_config_const('dynamic_validate', 'in_paymentx')
+      eval(wf) if wf.present?
+    end        
   end
 end

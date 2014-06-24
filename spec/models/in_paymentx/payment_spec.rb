@@ -39,10 +39,10 @@ module InPaymentx
     
     it "should have project id" do
       p = FactoryGirl.build(:in_paymentx_payment, :project_id => nil)
-      p.should_not be_valid
+      p.should be_valid
     end
     
-    it "should have 0 project id" do
+    it "should not have 0 project id" do
       p = FactoryGirl.build(:in_paymentx_payment, :project_id => 0)
       p.should_not be_valid
     end
