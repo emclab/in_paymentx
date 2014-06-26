@@ -11,10 +11,10 @@ module InPaymentx
                     :project_name, 
                     :as => :role_update
 
-    attr_accessor :project_id_s, :keyword_s, :start_date_s, :end_date_s, :customer_id_s, :payment_via_s,
+    attr_accessor :project_id_s, :keyword_s, :start_date_s, :end_date_s, :customer_id_s, :payment_via_s, :contract_id_s,
                     :sales_id_s, :time_frame_s, :received_by_id_s, :zone_id_s
 
-    attr_accessible :project_id_s, :keyword_s, :start_date_s, :end_date_s, :customer_id_s, :payment_via_s,
+    attr_accessible :project_id_s, :keyword_s, :start_date_s, :end_date_s, :customer_id_s, :payment_via_s, :contract_id_s,
                     :sales_id_s, :time_frame_s, :received_by_id_s, :zone_id_s,
                     :as => :role_search_stats 
                     
