@@ -5,6 +5,7 @@ module InPaymentx
     include Authentify::UsersHelper
     include Authentify::UserPrivilegeHelper
     include Commonx::CommonxHelper
+    include Searchx::SearchHelper
     
     before_filter :require_signin
     before_filter :max_pagination
