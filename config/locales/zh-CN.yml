@@ -25,22 +25,17 @@ zh-CN:
   Successfully Saved! : '已保存！'
   Successfully Updated! : '已更新！'
   'Data Error. Not Saved!' : '数据错误。无法保存！'
-  'Data Error. Not Updated!' : '数据错误。无法更新！'
-  
+  'Data Error. Not Updated!' : '数据错误。无法更新！'  
   Paid out              : '付清?'
-  Paid Out?             : '付清?'
-  
+  Paid Out?             : '付清?'  
   Payments              : '收款'
   New Payment           : '新收款'
   Edit Payment          : '更改收款'
   Payment Info          : '收款内容'
   Payment Search        : '收款搜索'
-  Payment Search Results : '收款搜索结果s'
-  
-  Project Name          : '项目名称'
-  
-  Date                  : '日期'
-  
+  Payment Search Results : '收款搜索结果s'  
+  Project Name          : '项目名称' 
+  Date                  : '日期'  
   Contract              : '合同'
   Sales                 : '业务员'
   Create Date           : '生成日期'
@@ -56,13 +51,10 @@ zh-CN:
   Back                  : '返回'
   Name                  : '名称'
   Log                   : '记录内容'
-  New Log               : '新记录log'
-  
+  New Log               : '新记录log'  
   Last Updated By       : '更改人'
-  New Payment           : '新收款'
-  
-  Brief Note            : '简注'
-  
+  New Payment           : '新收款'  
+  Brief Note            : '简注'  
   'Contract#'           : '合同#'
   Paid Amount           : '已付款额'
   Payment Via          : '支付方式'
@@ -70,27 +62,22 @@ zh-CN:
   'Payment#'            : '支付#'
   Payment Description   : '收款说明'
   Received By           : '收款人'
-  Received Date         : '收款日期'
-  
-  Search Payment        : '搜索收款'
-  
+  Received Date         : '收款日期' 
+  Search Payment        : '搜索收款'  
   Instructions          : '指示'
   Active                : '有效'
   Ranking               : '序列#'
   Ranking Index         : '序列#'
-  Save                  : '保存'
-  
+  Save                  : '保存'  
   Completed             : '完成'
   RequestedBy           : '申请人'
   LastUpdatedBy         : '更改'
-  EnteredBy             : '输入'
-  
-  Duplicate Name! : '名字重复！'
-  
-  Payment Total($) : '收款总额（￥）'
-  
+  EnteredBy             : '输入'  
+  Duplicate Name! : '名字重复！'  
+  Payment Total($) : '收款总额（￥）'  
   Dates : '时段'
   Payment Total : '付款总额（￥）'
+  Payment Total($) : '付款总额（￥）'
   Choose Customer : '选择客户'
   Payment Received By : '收款人'
   Status : '状态'
@@ -101,3 +88,4 @@ zh-CN:
   Quarter : '季'
   Year : '年'
   Contract Id : '合同#'
+  

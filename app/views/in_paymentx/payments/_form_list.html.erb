@@ -2,6 +2,7 @@
   <%= render inline: ERB.new(@erb_code).result(binding) %>
   
   <% else %>
+ <p>金额总和（￥）=<%=number_with_precision(models.sum(:paid_amount), :precision => 2, :separator => '.')  if models %></p>
 <div class="pagination"><%= will_paginate models %></div>
 
 <table class="table table-striped">
@@ -42,7 +43,9 @@
     	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
         <%= link_to t('Back'), SUBURI + "/authentify/view_handler?index=0", :class => BUTTONS_CLS['action']  %>
     	<%#= link_to t('Search Payment'), SUBURI + "/authentify/view_handler?index=1&url=#{search_payments_path}", :class => BUTTONS_CLS['action'] %>
-    	<%= link_to t('New Payment'), SUBURI + "/authentify/view_handler?index=1&url=#{CGI::escape(new_payment_path(:contract_id => @contract.id, :project_id => @project.id, :parent_record_id => @contract.id, :parent_resource => InPaymentx.contract_resource))}", :class => BUTTONS_CLS['action'] if @contract && @project && has_action_right?('create', params[:controller], InPaymentx.contract_class.find_by_id(@contract.id)) %>
+    	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        <%= link_to t('New Payment'), SUBURI + "/authentify/view_handler?index=1&url=#{CGI::escape(new_payment_path(:contract_id => @contract.id, :project_id => @project.id, :parent_record_id => @contract.id, :parent_resource => InPaymentx.contract_resource))}", :class => BUTTONS_CLS['action'] if @contract && @project && has_action_right?('create', params[:controller], InPaymentx.contract_class.find_by_id(@contract.id)) %>
+    	
     </th>
   </tr>
 </table>
