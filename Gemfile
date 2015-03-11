@@ -6,18 +6,18 @@ source "https://rubygems.org"
 gemspec
 
 # jquery-rails is used by the dummy application
-gem "jquery-rails", "~> 2.3.0"
+gem "jquery-rails" #, "~> 2.3.0"
 gem "will_paginate"
+gem 'tzinfo-data', platforms: [:mingw_20, :mingw, :mswin]
+gem 'protected_attributes'  #for rails 4
+gem 'factory_girl_rails' #rails 4.2
 
 #gem 'authentify', :git => 'http://github.com/emclab/authentify.git'
 gem 'authentify', :path => '../authentify'  #for rspec test
 gem 'commonx', :path => '../commonx'
-gem 'fixed_task_projectx', :path => '../fixed_task_projectx'
+gem 'ext_construction_projectx', :path => '../ext_construction_projectx'
 gem 'simple_contractx', :path => '../simple_contractx'
 gem 'kustomerx', :path => '../kustomerx'
-gem 'template_taskx', :path => '../template_taskx'
-gem 'task_templatex', :path => '../task_templatex'
-gem 'simple_typex', :path => '../simple_typex'
 gem 'searchx', :path => '../searchx'
 # Declare any dependencies that are still in development here instead of in
 # your gemspec. These might include edge Rails or gems from your path or

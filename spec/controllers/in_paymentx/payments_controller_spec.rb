@@ -1,7 +1,8 @@
-require 'spec_helper'
+require 'rails_helper'
 
 module InPaymentx
-  describe PaymentsController do
+  RSpec.describe PaymentsController, type: :controller do
+    routes {InPaymentx::Engine.routes}
     before(:each) do
       controller.should_receive(:require_signin)
     end
@@ -33,26 +34,26 @@ module InPaymentx
     describe "GET 'index'" do
       it "returns all payments for regular user" do
         user_access = FactoryGirl.create(:user_access, :action => 'index', :resource => 'in_paymentx_payments', :role_definition_id => @role.id, :rank => 1,
-        :sql_code => "InPaymentx::Payment.scoped.order('created_at')")
+        :sql_code => "InPaymentx::Payment.all.order('created_at')")
         session[:employee] = true
         session[:user_id] = @u.id
         session[:user_privilege] = Authentify::UserPrivilegeHelper::UserPrivilege.new(@u.id)
         qs = FactoryGirl.create(:in_paymentx_payment, :last_updated_by_id => @u.id, :project_id => @proj.id)
         qs1 = FactoryGirl.create(:in_paymentx_payment, :last_updated_by_id => @u.id)
-        get 'index' , {:use_route => :in_paymentx}
-        assigns(:payments).should =~ [qs, qs1]       
+        get 'index' 
+        expect(assigns(:payments)).to match_array([qs, qs1])       
       end
       
       it "should return payments for the project" do
         user_access = FactoryGirl.create(:user_access, :action => 'index', :resource => 'in_paymentx_payments', :role_definition_id => @role.id, :rank => 1,
-        :sql_code => "InPaymentx::Payment.scoped.order('created_at')")
+        :sql_code => "InPaymentx::Payment.all.order('created_at')")
         session[:employee] = true
         session[:user_id] = @u.id
         session[:user_privilege] = Authentify::UserPrivilegeHelper::UserPrivilege.new(@u.id)
         qs = FactoryGirl.create(:in_paymentx_payment,  :last_updated_by_id => @u.id, :project_id => @proj.id)
         qs1 = FactoryGirl.create(:in_paymentx_payment, :last_updated_by_id => @u.id, :project_id => @proj1.id)
-        get 'index' , {:use_route => :in_paymentx, :project_id => @proj.id}
-        assigns(:payments).should eq([qs])
+        get 'index' , {:project_id => @proj.id}
+        expect(assigns(:payments)).to match_array([qs])
       end
     end
   
@@ -63,8 +64,8 @@ module InPaymentx
         session[:employee] = true
         session[:user_id] = @u.id
         session[:user_privilege] = Authentify::UserPrivilegeHelper::UserPrivilege.new(@u.id)
-        get 'new' , {:use_route => :in_paymentx, :project_id => @proj.id, :contract_id => @contract.id}
-        response.should be_success
+        get 'new' , {:project_id => @proj.id, :contract_id => @contract.id}
+        expect(response).to be_success
       end
       
     end
@@ -77,8 +78,8 @@ module InPaymentx
         session[:user_id] = @u.id
         session[:user_privilege] = Authentify::UserPrivilegeHelper::UserPrivilege.new(@u.id)
         qs = FactoryGirl.attributes_for(:in_paymentx_payment, :project_id => @proj.id, :contract_id => @contract.id)
-        get 'create' , {:use_route => :in_paymentx,  :payment => qs, :project_id => @proj.id, :contract_id => @contract.id}
-        response.should redirect_to URI.escape(SUBURI + "/authentify/view_handler?index=0&msg=Successfully Saved!")
+        get 'create' , { :payment => qs, :project_id => @proj.id, :contract_id => @contract.id}
+        expect(response).to redirect_to URI.escape(SUBURI + "/authentify/view_handler?index=0&msg=Successfully Saved!")
       end
       
       it "should render 'new' if data error" do
@@ -88,8 +89,8 @@ module InPaymentx
         session[:user_id] = @u.id
         session[:user_privilege] = Authentify::UserPrivilegeHelper::UserPrivilege.new(@u.id)
         qs = FactoryGirl.attributes_for(:in_paymentx_payment, :paid_amount => nil, :contract_id => @contract.id, :project_id => @proj.id)
-        get 'create' , {:use_route => :in_paymentx, :project_id => @proj.id, :payment => qs, :contract_id => @contract.id}
-        response.should render_template("new")
+        get 'create' , {:project_id => @proj.id, :payment => qs, :contract_id => @contract.id}
+        expect(response).to render_template("new")
       end
     end
   
@@ -102,8 +103,8 @@ module InPaymentx
         session[:user_id] = @u.id
         session[:user_privilege] = Authentify::UserPrivilegeHelper::UserPrivilege.new(@u.id)
         qs = FactoryGirl.create(:in_paymentx_payment, :project_id => @proj.id, :contract_id => @contract.id)
-        get 'edit' , {:use_route => :in_paymentx, :project_id => @proj.id, :id => qs.id, :contract_id => @contract.id}
-        response.should be_success
+        get 'edit' , {:project_id => @proj.id, :id => qs.id, :contract_id => @contract.id}
+        expect(response).to be_success
       end
       
     end
@@ -117,8 +118,8 @@ module InPaymentx
         session[:user_id] = @u.id
         session[:user_privilege] = Authentify::UserPrivilegeHelper::UserPrivilege.new(@u.id)
         qs = FactoryGirl.create(:in_paymentx_payment)
-        get 'update' , {:use_route => :in_paymentx, :project_id => @proj.id, :id => qs.id, :contract_id => @contract.id, :payment => {:payment_via => 'true'}}
-        response.should redirect_to URI.escape(SUBURI + "/authentify/view_handler?index=0&msg=Successfully Updated!")
+        get 'update' , {:project_id => @proj.id, :id => qs.id, :contract_id => @contract.id, :payment => {:payment_via => 'true'}}
+        expect(response).to redirect_to URI.escape(SUBURI + "/authentify/view_handler?index=0&msg=Successfully Updated!")
       end
       
       it "should render 'new' if data error" do
@@ -128,8 +129,8 @@ module InPaymentx
         session[:user_id] = @u.id
         session[:user_privilege] = Authentify::UserPrivilegeHelper::UserPrivilege.new(@u.id)
         qs = FactoryGirl.create(:in_paymentx_payment)
-        get 'update' , {:use_route => :in_paymentx, :project_id => @proj.id, :id => qs.id, :contract_id => @contract.id, :payment => {:paid_amount => nil}}
-        response.should render_template("edit")
+        get 'update' , {:project_id => @proj.id, :id => qs.id, :contract_id => @contract.id, :payment => {:paid_amount => nil}}
+        expect(response).to render_template("edit")
       end
     end
   
@@ -142,8 +143,8 @@ module InPaymentx
         session[:user_id] = @u.id
         session[:user_privilege] = Authentify::UserPrivilegeHelper::UserPrivilege.new(@u.id)
         qs = FactoryGirl.create(:in_paymentx_payment, :project_id => @proj.id, :contract_id => @contract.id)
-        get 'show' , {:use_route => :in_paymentx, :id => qs.id}
-        response.should be_success
+        get 'show' , {:id => qs.id}
+        expect(response).to be_success
       end
     end
   

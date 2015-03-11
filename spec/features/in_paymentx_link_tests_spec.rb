@@ -1,6 +1,6 @@
-require 'spec_helper'
+require 'rails_helper'
 
-describe "LinkTests" do
+RSpec.describe "LinkTests", type: :request do
   describe "GET /in_paymentx_link_tests" do
     mini_btn = 'btn btn-mini '
     ActionView::CompiledTemplates::BUTTONS_CLS =
@@ -61,19 +61,19 @@ describe "LinkTests" do
     end
     it "works! (now write some real specs)" do
       qs = FactoryGirl.create(:in_paymentx_payment, :last_updated_by_id => @u.id, :project_id => @proj.id)
-      visit payments_path
-      page.should have_content('Payments')
+      visit in_paymentx.payments_path
+      expect(page).to have_content('Payments')
       
-      visit payments_path
+      visit in_paymentx.payments_path
       save_and_open_page
       click_link('Edit')
       save_and_open_page
-      page.should have_content('Edit Payment')
+      expect(page).to have_content('Edit Payment')
       
-      visit payments_path(:project_id => @proj.id, :contract_id => @contract.id)
+      visit in_paymentx.payments_path(:project_id => @proj.id, :contract_id => @contract.id)
       click_link('New Payment')
       save_and_open_page
-      page.should have_content('New Payment')
+      expect(page).to have_content('New Payment')
     end
   end
 end

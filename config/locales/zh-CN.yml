@@ -88,4 +88,6 @@ zh-CN:
   Quarter : '季'
   Year : '年'
   Contract Id : '合同#'
-  
+  Delete the record? : '删除？'
+  Delete  : '删除'
+  Successfully Deleted! : '已删除！'
