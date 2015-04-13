@@ -10,11 +10,12 @@ class CreateAuthentifyEngineConfigs < ActiveRecord::Migration
       t.integer     :last_updated_by_id
       t.timestamps
       t.string      :brief_note
+      t.boolean :global, :default => false
       
     end
     
     add_index :authentify_engine_configs, :engine_name
     add_index :authentify_engine_configs, :argument_name
-    add_index :authentify_engine_configs, [:engine_name, :argument_name]
+    add_index :authentify_engine_configs, [:engine_name, :argument_name], :name => :authentify_engine_configs_names
   end
 end

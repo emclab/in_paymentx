@@ -35,7 +35,7 @@ RSpec.describe "LinkTests", type: :request do
       @u = FactoryGirl.create(:user, :user_levels => [ul], :user_roles => [ur])
       
       ua1 = FactoryGirl.create(:user_access, :action => 'index', :resource => 'in_paymentx_payments', :role_definition_id => @role.id, :rank => 1,
-           :sql_code => "InPaymentx::Payment.scoped.order('created_at DESC')")
+           :sql_code => "InPaymentx::Payment.order('created_at DESC')")
       ua1 = FactoryGirl.create(:user_access, :action => 'create', :resource => 'in_paymentx_payments', :role_definition_id => @role.id, :rank => 1,
            :sql_code => "")
       ua1 = FactoryGirl.create(:user_access, :action => 'update', :resource => 'in_paymentx_payments', :role_definition_id => @role.id, :rank => 1,
@@ -43,20 +43,16 @@ RSpec.describe "LinkTests", type: :request do
       ua1 = FactoryGirl.create(:user_access, :action => 'show', :resource => 'in_paymentx_payments', :role_definition_id => @role.id, :rank => 1,
            :sql_code => "")      
            
-      @proj_type = FactoryGirl.create(:simple_typex_type)
-      @proj_type1 = FactoryGirl.create(:simple_typex_type, :name => 'newnew')
-      @tt = FactoryGirl.create(:task_templatex_template, :active => true, :last_updated_by_id => @u.id, :type_id => @proj_type.id)
-      @tt1 = FactoryGirl.create(:task_templatex_template, :name => 'a new name', :active => true, :last_updated_by_id => @u.id, :type_id => @proj_type1.id)
       @cust = FactoryGirl.create(:kustomerx_customer)
-      @proj = FactoryGirl.create(:fixed_task_projectx_project, :task_template_id => @tt.id, :customer_id => @cust.id)
-      @proj1 = FactoryGirl.create(:fixed_task_projectx_project, :task_template_id => @tt1.id, :name => 'a new name', :project_num => 'something new') #, :customer_id => @cust.id)
+      @proj = FactoryGirl.create(:ext_construction_projectx_project, :customer_id => @cust.id)
+      @proj1 = FactoryGirl.create(:ext_construction_projectx_project, :name => 'a new name', :project_num => 'something new') #, :customer_id => @cust.id)
       @contract = FactoryGirl.create(:simple_contractx_contract, :void => false, :last_updated_by_id => @u.id, :project_id => @proj.id)
       @contract1 = FactoryGirl.create(:simple_contractx_contract, :void => false, :last_updated_by_id => @u.id, :project_id => @proj1.id)
       
       visit '/'
       #save_and_open_page
       fill_in "login", :with => @u.login
-      fill_in "password", :with => 'password'
+      fill_in "password", :with => @u.password
       click_button 'Login'
     end
     it "works! (now write some real specs)" do

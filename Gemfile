@@ -19,6 +19,7 @@ gem 'ext_construction_projectx', :path => '../ext_construction_projectx'
 gem 'simple_contractx', :path => '../simple_contractx'
 gem 'kustomerx', :path => '../kustomerx'
 gem 'searchx', :path => '../searchx'
+gem 'payment_requestx', :path => '../payment_requestx'
 # Declare any dependencies that are still in development here instead of in
 # your gemspec. These might include edge Rails or gems from your path or
 # Git. Remember to move these dependencies to your gemspec before releasing

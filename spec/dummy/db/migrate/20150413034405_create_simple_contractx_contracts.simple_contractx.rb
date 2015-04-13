@@ -2,21 +2,23 @@
 class CreateSimpleContractxContracts < ActiveRecord::Migration
   def change
     create_table :simple_contractx_contracts do |t|
-      t.integer :project_id
-      t.string :contract_num
+      t.integer :project_id      
       t.decimal :contract_total, :precision => 10, :scale => 2
-      t.text :payment_agreement
+      t.decimal :other_charge, :precision => 10, :scale => 2
       t.integer :payment_term
+      t.text :payment_agreement
       t.boolean :paid_out, :default => false
       t.boolean :signed, :default => false
       t.date :sign_date
       t.integer :signed_by_id
       t.boolean :contract_on_file, :default => false
-      t.boolean :void, :default => false
-      t.integer :last_updated_by_id
-      t.text :note
-
+      t.integer :last_updated_by_id     
       t.timestamps
+      t.string :contract_num
+      t.boolean :void, :default => false
+      t.text :note
+      t.decimal :executed_contract_total, :precision => 10, :scale => 2
+
     end
     
     add_index :simple_contractx_contracts, :project_id

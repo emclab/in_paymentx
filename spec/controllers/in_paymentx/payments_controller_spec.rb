@@ -4,7 +4,7 @@ module InPaymentx
   RSpec.describe PaymentsController, type: :controller do
     routes {InPaymentx::Engine.routes}
     before(:each) do
-      controller.should_receive(:require_signin)
+      expect(controller).to receive(:require_signin)
     end
     before(:each) do
       @pagination_config = FactoryGirl.create(:engine_config, :engine_name => nil, :engine_version => nil, :argument_name => 'pagination', :argument_value => 30)
@@ -18,15 +18,13 @@ module InPaymentx
       ur = FactoryGirl.create(:user_role, :role_definition_id => @role.id)
       ul = FactoryGirl.build(:user_level, :sys_user_group_id => ug.id)
       @u = FactoryGirl.create(:user, :user_levels => [ul], :user_roles => [ur])
-      @proj_type = FactoryGirl.create(:simple_typex_type)
-      @proj_type1 = FactoryGirl.create(:simple_typex_type, :name => 'newnew')
-      @tt = FactoryGirl.create(:task_templatex_template, :active => true, :last_updated_by_id => @u.id, :type_id => @proj_type.id)
-      @tt1 = FactoryGirl.create(:task_templatex_template, :name => 'a new name', :active => true, :last_updated_by_id => @u.id, :type_id => @proj_type1.id)
       @cust = FactoryGirl.create(:kustomerx_customer)
-      @proj = FactoryGirl.create(:fixed_task_projectx_project, :task_template_id => @tt.id, :customer_id => @cust.id)
-      @proj1 = FactoryGirl.create(:fixed_task_projectx_project, :task_template_id => @tt1.id, :name => 'a new name', :project_num => 'something new') #, :customer_id => @cust.id)
+      @proj = FactoryGirl.create(:ext_construction_projectx_project, :customer_id => @cust.id)
+      @proj1 = FactoryGirl.create(:ext_construction_projectx_project, :name => 'a new name', :project_num => 'something new') #, :customer_id => @cust.id)
       @contract = FactoryGirl.create(:simple_contractx_contract, :void => false, :last_updated_by_id => @u.id, :project_id => @proj.id)
       @contract1 = FactoryGirl.create(:simple_contractx_contract, :void => false, :last_updated_by_id => @u.id, :project_id => @proj1.id)
+      
+      session[:user_role_ids] = Authentify::UserPrivilegeHelper::UserPrivilege.new(@u.id).user_role_ids
     end
       
     render_views
@@ -36,8 +34,7 @@ module InPaymentx
         user_access = FactoryGirl.create(:user_access, :action => 'index', :resource => 'in_paymentx_payments', :role_definition_id => @role.id, :rank => 1,
         :sql_code => "InPaymentx::Payment.all.order('created_at')")
         session[:employee] = true
-        session[:user_id] = @u.id
-        session[:user_privilege] = Authentify::UserPrivilegeHelper::UserPrivilege.new(@u.id)
+        session[:user_id] = @u.id        
         qs = FactoryGirl.create(:in_paymentx_payment, :last_updated_by_id => @u.id, :project_id => @proj.id)
         qs1 = FactoryGirl.create(:in_paymentx_payment, :last_updated_by_id => @u.id)
         get 'index' 
@@ -48,8 +45,7 @@ module InPaymentx
         user_access = FactoryGirl.create(:user_access, :action => 'index', :resource => 'in_paymentx_payments', :role_definition_id => @role.id, :rank => 1,
         :sql_code => "InPaymentx::Payment.all.order('created_at')")
         session[:employee] = true
-        session[:user_id] = @u.id
-        session[:user_privilege] = Authentify::UserPrivilegeHelper::UserPrivilege.new(@u.id)
+        session[:user_id] = @u.id        
         qs = FactoryGirl.create(:in_paymentx_payment,  :last_updated_by_id => @u.id, :project_id => @proj.id)
         qs1 = FactoryGirl.create(:in_paymentx_payment, :last_updated_by_id => @u.id, :project_id => @proj1.id)
         get 'index' , {:project_id => @proj.id}
@@ -62,8 +58,7 @@ module InPaymentx
         user_access = FactoryGirl.create(:user_access, :action => 'create', :resource => 'in_paymentx_payments', :role_definition_id => @role.id, :rank => 1,
         :sql_code => "")
         session[:employee] = true
-        session[:user_id] = @u.id
-        session[:user_privilege] = Authentify::UserPrivilegeHelper::UserPrivilege.new(@u.id)
+        session[:user_id] = @u.id      
         get 'new' , {:project_id => @proj.id, :contract_id => @contract.id}
         expect(response).to be_success
       end
@@ -75,8 +70,7 @@ module InPaymentx
         user_access = FactoryGirl.create(:user_access, :action => 'create', :resource => 'in_paymentx_payments', :role_definition_id => @role.id, :rank => 1,
         :sql_code => "")
         session[:employee] = true
-        session[:user_id] = @u.id
-        session[:user_privilege] = Authentify::UserPrivilegeHelper::UserPrivilege.new(@u.id)
+        session[:user_id] = @u.id        
         qs = FactoryGirl.attributes_for(:in_paymentx_payment, :project_id => @proj.id, :contract_id => @contract.id)
         get 'create' , { :payment => qs, :project_id => @proj.id, :contract_id => @contract.id}
         expect(response).to redirect_to URI.escape(SUBURI + "/authentify/view_handler?index=0&msg=Successfully Saved!")
@@ -87,7 +81,7 @@ module InPaymentx
         :sql_code => "")
         session[:employee] = true
         session[:user_id] = @u.id
-        session[:user_privilege] = Authentify::UserPrivilegeHelper::UserPrivilege.new(@u.id)
+        
         qs = FactoryGirl.attributes_for(:in_paymentx_payment, :paid_amount => nil, :contract_id => @contract.id, :project_id => @proj.id)
         get 'create' , {:project_id => @proj.id, :payment => qs, :contract_id => @contract.id}
         expect(response).to render_template("new")
@@ -100,8 +94,7 @@ module InPaymentx
         user_access = FactoryGirl.create(:user_access, :action => 'update', :resource => 'in_paymentx_payments', :role_definition_id => @role.id, :rank => 1,
         :sql_code => "")
         session[:employee] = true
-        session[:user_id] = @u.id
-        session[:user_privilege] = Authentify::UserPrivilegeHelper::UserPrivilege.new(@u.id)
+        session[:user_id] = @u.id        
         qs = FactoryGirl.create(:in_paymentx_payment, :project_id => @proj.id, :contract_id => @contract.id)
         get 'edit' , {:project_id => @proj.id, :id => qs.id, :contract_id => @contract.id}
         expect(response).to be_success
@@ -115,8 +108,7 @@ module InPaymentx
         user_access = FactoryGirl.create(:user_access, :action => 'update', :resource => 'in_paymentx_payments', :role_definition_id => @role.id, :rank => 1,
         :sql_code => "")
         session[:employee] = true
-        session[:user_id] = @u.id
-        session[:user_privilege] = Authentify::UserPrivilegeHelper::UserPrivilege.new(@u.id)
+        session[:user_id] = @u.id       
         qs = FactoryGirl.create(:in_paymentx_payment)
         get 'update' , {:project_id => @proj.id, :id => qs.id, :contract_id => @contract.id, :payment => {:payment_via => 'true'}}
         expect(response).to redirect_to URI.escape(SUBURI + "/authentify/view_handler?index=0&msg=Successfully Updated!")
@@ -127,7 +119,7 @@ module InPaymentx
         :sql_code => "")
         session[:employee] = true
         session[:user_id] = @u.id
-        session[:user_privilege] = Authentify::UserPrivilegeHelper::UserPrivilege.new(@u.id)
+        
         qs = FactoryGirl.create(:in_paymentx_payment)
         get 'update' , {:project_id => @proj.id, :id => qs.id, :contract_id => @contract.id, :payment => {:paid_amount => nil}}
         expect(response).to render_template("edit")
@@ -140,8 +132,7 @@ module InPaymentx
         user_access = FactoryGirl.create(:user_access, :action => 'show', :resource => 'in_paymentx_payments', :role_definition_id => @role.id, :rank => 1,
         :sql_code => "")
         session[:employee] = true
-        session[:user_id] = @u.id
-        session[:user_privilege] = Authentify::UserPrivilegeHelper::UserPrivilege.new(@u.id)
+        session[:user_id] = @u.id        
         qs = FactoryGirl.create(:in_paymentx_payment, :project_id => @proj.id, :contract_id => @contract.id)
         get 'show' , {:id => qs.id}
         expect(response).to be_success
