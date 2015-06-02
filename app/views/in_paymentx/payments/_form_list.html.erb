@@ -4,7 +4,7 @@
   <% else %>
  <p>金额总和（￥）=<%=number_with_precision(models.sum(:paid_amount), :precision => 2, :separator => '.')  if models %></p>
 <div class="pagination"><%= will_paginate models %></div>
-
+<h4><%= t(@title) %></h4>
 <table class="table table-striped">
   <tr>
     <th>#</th>

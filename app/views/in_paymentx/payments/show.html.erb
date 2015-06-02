@@ -2,7 +2,6 @@
   <%= render inline: ERB.new(@erb_code).result(binding) %>
   
   <% else %>
-<div id="main_body">
 
 <h4><%= t(@title) %></h4>
 
@@ -44,6 +43,5 @@
   </tr>
 </table>
 
-</div>
 
 <% end %>

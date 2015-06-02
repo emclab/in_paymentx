@@ -1,6 +1,7 @@
 module InPaymentx
   class Payment < ActiveRecord::Base
     attr_accessor :project_name
+=begin
     attr_accessible :paid_amount, :received_by_id, :brief_note, :received_date, :payment_via, :contract_id, :project_id, 
                     :last_updated_by_id, 
                     :project_name, 
@@ -17,7 +18,7 @@ module InPaymentx
     attr_accessible :project_id_s, :keyword_s, :start_date_s, :end_date_s, :customer_id_s, :payment_via_s, :contract_id_s,
                     :sales_id_s, :time_frame_s, :received_by_id_s, :zone_id_s,
                     :as => :role_search_stats 
-                    
+=end                    
 
     belongs_to :last_updated_by, :class_name => 'Authentify::User'
     belongs_to :contract, :class_name => InPaymentx.contract_class.to_s

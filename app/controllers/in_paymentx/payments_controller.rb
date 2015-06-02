@@ -24,7 +24,7 @@ module InPaymentx
 
 
     def create
-      @payment = InPaymentx::Payment.new(params[:payment], :as => :role_new)
+      @payment = InPaymentx::Payment.new(new_params)
       @payment.last_updated_by_id = session[:user_id]
       if @payment.save
         redirect_to URI.escape(SUBURI + "/authentify/view_handler?index=0&msg=Successfully Saved!")
@@ -47,7 +47,7 @@ module InPaymentx
     def update
       @payment = InPaymentx::Payment.find_by_id(params[:id])
       @payment.last_updated_by_id = session[:user_id]
-      if @payment.update_attributes(params[:payment], :as => :role_update)
+      if @payment.update_attributes(edit_params)
         redirect_to URI.escape(SUBURI + "/authentify/view_handler?index=0&msg=Successfully Updated!")
       else
         @erb_code = find_config_const('payment_edit_view', 'in_paymentx')
@@ -70,6 +70,16 @@ module InPaymentx
       @contract = InPaymentx.contract_class.find_by_id(InPaymentx::Payment.find_by_id(params[:id]).contract_id) if params[:id].present? 
       @project = InPaymentx.project_class.find_by_id(InPaymentx::Payment.find_by_id(params[:id]).project_id) if params[:id].present? 
       
+    end
+    
+    private
+    
+    def new_params
+      params.require(:payment).permit(:paid_amount, :received_by_id, :brief_note, :received_date, :payment_via, :contract_id, :project_id)
+    end
+    
+    def edit_params
+      params.require(:payment).permit(:paid_amount, :received_by_id, :brief_note, :received_date, :payment_via, :contract_id, :project_id)
     end
 
   end
