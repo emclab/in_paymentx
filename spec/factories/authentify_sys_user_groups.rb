@@ -7,5 +7,6 @@ FactoryGirl.define do
     manager_group_id  30
     zone_id 1
     short_note "MyString"
+    fort_token '123456789'
   end
 end

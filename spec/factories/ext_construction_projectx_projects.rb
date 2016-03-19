@@ -19,5 +19,6 @@ FactoryGirl.define do
     cancelled false
     last_updated_by_id 1
     note "MyText"
+    fort_token '123456789'
   end
 end

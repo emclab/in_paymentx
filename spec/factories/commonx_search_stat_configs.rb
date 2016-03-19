@@ -39,6 +39,7 @@ FactoryGirl.define do
     search_list_form 'index_partial'
     stat_header 'Dates, Payment Total'
     search_params "{}"
+    fort_token '123456789'
   end
 
 end

@@ -1,4 +1,4 @@
-<% if @view_in_config && @erb_code %>
+<% if @erb_code %>
   <%= render inline: ERB.new(@erb_code).result(binding) %>
   
   <% else %>
@@ -24,11 +24,11 @@
 </p>
 <p>
   <b><%= t('Received By') %></b>
-  <%= @payment.received_by.name %>
+  <%= @payment.received_by.name if @payment.received_by_id.present? %>
 </p>
 <p>
   <b><%= t('Last Updated By') %></b>
-  <%= @payment.last_updated_by.name %>
+  <%= @payment.last_updated_by.try(:name) %>
 </p>
 <p>
     <b><%= t('Brief Note') %></b>
@@ -38,7 +38,7 @@
   <table class="table table-striped">
 	  <tr>
 	    <th>
-			<%= link_to t('Back'), SUBURI + "/authentify/view_handler?index=0", :id => 'close', :class => BUTTONS_CLS['action'] %>
+			<%= link_to t('Back'), SUBURI + "/view_handler?index=0", :id => 'close', :class => BUTTONS_CLS['action'] %>
        </th>
   </tr>
 </table>

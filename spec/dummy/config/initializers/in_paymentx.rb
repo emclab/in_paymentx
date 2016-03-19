@@ -1,4 +1,4 @@
-InPaymentx.contract_class = 'SimpleContractx::Contract'
-InPaymentx.project_class = 'ExtConstructionProjectx::Project'
-InPaymentx.show_contract_path = 'simple_contractx.contract_path(r.contract_id)'
-InPaymentx.contract_resource = 'simple_contractx/contracts'
+InPaymentx.contract_class = 'Commonx::MiscDefinition'
+InPaymentx.project_class = 'Commonx::MiscDefinition'
+InPaymentx.payer_class = 'Commonx::MiscDefinition' #parking
+InPaymentx.bank_acct_class = 'Commonx::MiscDefinition'  #parking

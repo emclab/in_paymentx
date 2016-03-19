@@ -14,5 +14,6 @@ FactoryGirl.define do
     last_updated_by_id 1
     void false
     note "Mynote Text"
+    fort_token '123456789'
   end
 end

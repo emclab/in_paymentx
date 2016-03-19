@@ -17,5 +17,6 @@ FactoryGirl.define do
     paid_date "2013-09-08"
     project_id 1
     wf_state 'initial_state'
+    fort_token '123456789'
   end
 end

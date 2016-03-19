@@ -21,5 +21,6 @@ FactoryGirl.define do
     customer_specific "MyText"
     note "MyText"
     web "MyString"
+    fort_token '123456789'
   end
 end

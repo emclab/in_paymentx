@@ -11,6 +11,7 @@ class CreateAuthentifyEngineConfigs < ActiveRecord::Migration
       t.timestamps
       t.string      :brief_note
       t.boolean :global, :default => false
+      t.string :fort_token
       
     end
     

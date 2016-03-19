@@ -1,4 +1,4 @@
-<% if @view_in_config && @erb_code %>
+<% if  @erb_code %>
   <%= render inline: @erb_code %>
   
   <% else %>
@@ -7,14 +7,12 @@
     <%= f.input :project_name, :label => t('Project Name'), :readonly => true, :input_html => {:value => @project.try('name')} %>
     <%= f.input :contract_id, :label => t('Contract Id'), :readonly => true %>
     <%= f.input :paid_amount, :label => t('Payment Amount') %>
-    <%= f.input :received_by_id, :label => t('Received By'), :collection => Authentify::UsersHelper.return_users('create', 'in_paymentx_payments') %>
+    <%= f.input :received_by_id, :label => t('Received By'), :collection => Authentify::UsersHelper.return_users('create', 'in_paymentx_payments', session[:fort_token]) %>
     <%= f.input :brief_note,:label => t('Payment Description'), :input_html => {:rows => 2} %>
     <%= f.input :received_date, :label => t('Received Date'), :as => :string %>
-    <%= f.input :contract_id, :as => :hidden %>
-    <%= f.input :project_id, :as => :hidden %>
-	<%= f.input :payment_via, :label => t('Payment Via'), :collection => find_config_const('payment_via').split(",") %>
+    <%= f.input :payment_via, :label => t('Payment Via'), :collection => find_config_const('payment_via', session[:fort_token]).split(",") %>
     
-    <%= link_to t('Back'), SUBURI + "/authentify/view_handler?index=0", :class => BUTTONS_CLS['action']  %>
+    <%= link_to t('Back'), SUBURI + "/view_handler?index=0", :class => BUTTONS_CLS['action']  %>
     <%= f.button :submit, t('Save'), :class => BUTTONS_CLS['action'] %>
 <% end %>
 

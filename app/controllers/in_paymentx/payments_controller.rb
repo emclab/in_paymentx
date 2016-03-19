@@ -26,8 +26,9 @@ module InPaymentx
     def create
       @payment = InPaymentx::Payment.new(new_params)
       @payment.last_updated_by_id = session[:user_id]
+      @payment.fort_token = session[:fort_token]
       if @payment.save
-        redirect_to URI.escape(SUBURI + "/authentify/view_handler?index=0&msg=Successfully Saved!")
+        redirect_to URI.escape(SUBURI + "/view_handler?index=0&msg=Successfully Saved!")
       else
         #for render new when data error
         @contract = InPaymentx.contract_class.find_by_id(params[:payment][:contract_id]) if params[:payment].present? && params[:payment][:contract_id].present? 
@@ -41,14 +42,16 @@ module InPaymentx
     def edit
       @title = t('Edit Payment')
       @payment = InPaymentx::Payment.find_by_id(params[:id])
+      return nil if @payment.fort_token != session[:fort_token]
       @erb_code = find_config_const('payment_edit_view', 'in_paymentx')
     end
 
     def update
       @payment = InPaymentx::Payment.find_by_id(params[:id])
+      return nil if @payment.fort_token != session[:fort_token]
       @payment.last_updated_by_id = session[:user_id]
       if @payment.update_attributes(edit_params)
-        redirect_to URI.escape(SUBURI + "/authentify/view_handler?index=0&msg=Successfully Updated!")
+        redirect_to URI.escape(SUBURI + "/view_handler?index=0&msg=Successfully Updated!")
       else
         @erb_code = find_config_const('payment_edit_view', 'in_paymentx')
         flash[:notice] = t('Data Error. Not Updated!')

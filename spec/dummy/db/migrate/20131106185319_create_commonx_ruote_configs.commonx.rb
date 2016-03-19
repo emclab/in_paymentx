@@ -9,7 +9,7 @@ class CreateCommonxRuoteConfigs < ActiveRecord::Migration
       t.integer     :last_updated_by_id
       t.string      :brief_note
       t.timestamps
-      
+      t.string :fort_token
     end
     
     add_index :commonx_ruote_configs, :engine_name

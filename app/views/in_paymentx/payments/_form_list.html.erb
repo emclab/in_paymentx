@@ -1,4 +1,4 @@
-<% if @view_in_config && @erb_code %>
+<% if  @erb_code %>
   <%= render inline: ERB.new(@erb_code).result(binding) %>
   
   <% else %>
@@ -21,8 +21,8 @@
   <tr>
     
     <td><%= prt(r, :id) %></td>
-  	<% if has_action_right?('show', InPaymentx.contract_resource, InPaymentx.contract_class.find_by_id(r.contract_id) ) %>
-  	  <td><%= link_to r.contract_id.to_s, SUBURI + "/authentify/view_handler?index=1&url=#{SUBURI + CGI::escape(eval(InPaymentx.show_contract_path))}"  %></td>
+  	<% if has_action_right?('show', 'simple_contractx/contracts', InPaymentx.contract_class.find_by_id(r.contract_id) ) %>
+  	  <td><%= link_to r.contract_id.to_s, SUBURI + "/view_handler?index=1&url=#{SUBURI + CGI::escape(eval(simple_contractx.payment_path(r.contract_id)))}"  %></td>
   	<% else %>
   	  <td><%= prt(r, 'contract_id') %></td>
   	<% end %>  
@@ -33,7 +33,7 @@
     <td><%= prt(r, :received_date).strftime('%Y/%m/%d') %></td>
     <td><%= prt(r, 'last_updated_by.name') %></td>
 
-    <td><%= link_to t('Edit'), SUBURI + "/authentify/view_handler?index=1&url=#{CGI::escape(edit_payment_path(r, :contract_id => r.contract_id, :project_id => r.project_id, :parent_record_id => r.contract_id, :parent_resource => InPaymentx.contract_resource))}", :class => BUTTONS_CLS['action']  if has_action_right?('update', params[:controller], r) %></td>
+    <td><%= link_to t('Edit'), SUBURI + "/view_handler?index=1&url=#{CGI::escape(edit_payment_path(id: r.id, :contract_id => r.contract_id, :project_id => r.project_id))}", :class => BUTTONS_CLS['action']  if has_action_right?('update', params[:controller], r) %></td>
    </tr>
 <% end %>
 </table>
@@ -41,10 +41,10 @@
   <tr>
     <th>
     	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-        <%= link_to t('Back'), SUBURI + "/authentify/view_handler?index=0", :class => BUTTONS_CLS['action']  %>
-    	<%#= link_to t('Search Payment'), SUBURI + "/authentify/view_handler?index=1&url=#{search_payments_path}", :class => BUTTONS_CLS['action'] %>
+        <%= link_to t('Back'), SUBURI + "/view_handler?index=0", :class => BUTTONS_CLS['action']  %>
+    	<%#= link_to t('Search Payment'), SUBURI + "/view_handler?index=1&url=#{search_payments_path}", :class => BUTTONS_CLS['action'] %>
     	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-        <%= link_to t('New Payment'), SUBURI + "/authentify/view_handler?index=1&url=#{CGI::escape(new_payment_path(:contract_id => @contract.id, :project_id => @project.id, :parent_record_id => @contract.id, :parent_resource => InPaymentx.contract_resource))}", :class => BUTTONS_CLS['action'] if @contract && @project && has_action_right?('create', params[:controller], InPaymentx.contract_class.find_by_id(@contract.id)) %>
+        <%= link_to t('New Payment'), SUBURI + "/view_handler?index=1&url=#{CGI::escape(new_payment_path(:contract_id => @contract.id, :project_id => @project.id))}", :class => BUTTONS_CLS['action'] if @contract && @project && has_action_right?('create', params[:controller], InPaymentx.contract_class.find_by_id(@contract.id)) %>
     	
     </th>
   </tr>

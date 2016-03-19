@@ -7,11 +7,11 @@ require "in_paymentx/version"
 Gem::Specification.new do |s|
   s.name        = "in_paymentx"
   s.version     = InPaymentx::VERSION
-  s.authors     = ["TODO: Your name"]
-  s.email       = ["TODO: Your email"]
-  s.homepage    = "TODO"
-  s.summary     = "TODO: Summary of InPaymentx."
-  s.description = "TODO: Description of InPaymentx."
+  s.authors     = ["Your name"]
+  s.email       = ["Your@email.com"]
+  s.homepage    = "http://www.home.com"
+  s.summary     = "Summary of InPaymentx."
+  s.description = "Description of InPaymentx."
 
   s.files = Dir["{app,config,db,lib}/**/*"] + ["MIT-LICENSE", "Rakefile", "README.rdoc"]
   s.test_files = Dir["test/**/*"]
@@ -22,7 +22,6 @@ Gem::Specification.new do |s|
   s.add_dependency "will_paginate"
   s.add_dependency "database_cleaner"
   s.add_dependency "execjs"
-  #s.add_dependency 'protected_attributes'
   s.add_dependency "sass-rails", '~>5.0.1'
   s.add_dependency "coffee-rails", '~>4.1.0'   
   s.add_dependency "uglifier"

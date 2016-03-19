@@ -18,7 +18,7 @@ class CreateSimpleContractxContracts < ActiveRecord::Migration
       t.boolean :void, :default => false
       t.text :note
       t.decimal :executed_contract_total, :precision => 10, :scale => 2
-
+      t.string :fort_token
     end
     
     add_index :simple_contractx_contracts, :project_id

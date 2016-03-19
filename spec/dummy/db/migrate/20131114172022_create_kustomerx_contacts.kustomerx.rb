@@ -11,6 +11,7 @@ class CreateKustomerxContacts < ActiveRecord::Migration
       t.text :brief_note
 
       t.timestamps
+      t.string :fort_token
     end
     
     add_index :kustomerx_contacts, :customer_id

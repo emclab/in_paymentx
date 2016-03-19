@@ -3,11 +3,11 @@ Rails.application.routes.draw do
   mount InPaymentx::Engine => "/in_paymentx"
   mount Commonx::Engine => "/commonx"
   mount Authentify::Engine => '/authentify'
-  mount ExtConstructionProjectx::Engine => '/projectx'
-  mount SimpleContractx::Engine => '/contractx'
-  mount Kustomerx::Engine => '/kustomerx'
+  #mount ExtConstructionProjectx::Engine => '/projectx'
+  #mount SimpleContractx::Engine => '/contractx'
+  #mount Kustomerx::Engine => '/kustomerx'
   mount Searchx::Engine => '/searchx'
-  mount PaymentRequestx::Engine => '/pr'
+  #mount PaymentRequestx::Engine => '/pr'
   
   
   root :to => "authentify/sessions#new"

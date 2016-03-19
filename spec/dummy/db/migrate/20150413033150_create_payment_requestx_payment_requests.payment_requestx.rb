@@ -23,6 +23,7 @@ class CreatePaymentRequestxPaymentRequests < ActiveRecord::Migration
       t.integer :project_id
       t.integer :pr_sub_category_id
       t.integer :approved_by_id
+      t.string :fort_token
       
     end
     

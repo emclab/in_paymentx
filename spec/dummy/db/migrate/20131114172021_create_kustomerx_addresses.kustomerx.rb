@@ -8,6 +8,7 @@ class CreateKustomerxAddresses < ActiveRecord::Migration
       t.integer :customer_id
 
       t.timestamps
+      t.string :fort_token
     end
     
     add_index :kustomerx_addresses, :customer_id

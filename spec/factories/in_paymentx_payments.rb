@@ -10,5 +10,6 @@ FactoryGirl.define do
     received_by_id 1
     brief_note "My a note Text"
     payment_via "wired"
+    fort_token '123456789'
   end
 end

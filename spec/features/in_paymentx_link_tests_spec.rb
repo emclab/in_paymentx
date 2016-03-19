@@ -26,9 +26,8 @@ RSpec.describe "LinkTests", type: :request do
                'form-span#'         => '4'
         }
     before(:each) do
+      config_entry = FactoryGirl.create(:engine_config, :engine_name => 'rails_app', :engine_version => nil, :argument_name => 'SESSION_TIMEOUT_MINUTES', :argument_value => 30)
       @pagination_config = FactoryGirl.create(:engine_config, :engine_name => nil, :engine_version => nil, :argument_name => 'pagination', :argument_value => 30)
-      @project_num_time_gen = FactoryGirl.create(:engine_config, :engine_name => 'fixed_task_projectx', :engine_version => nil, :argument_name => 'project_num_time_gen', 
-        :argument_value => ' FixedTaskProjectx::Project.last.nil? ? (Time.now.strftime("%Y%m%d") + "-"  + 112233.to_s + "-" + rand(100..999).to_s) :  (Time.now.strftime("%Y%m%d") + "-"  + (FixedTaskProjectx::Project.last.project_num.split("-")[-2].to_i + 555).to_s + "-" + rand(100..999).to_s)')
       @payment_type = FactoryGirl.create(:engine_config, :engine_name => 'in_paymentx', :engine_version => nil, :argument_name => 'payment_via', :argument_value => 'Cash, Check, Coupon, Credit Card, Credit Letter')
       z = FactoryGirl.create(:zone, :zone_name => 'hq')
       type = FactoryGirl.create(:group_type, :name => 'employee')
@@ -47,33 +46,45 @@ RSpec.describe "LinkTests", type: :request do
       ua1 = FactoryGirl.create(:user_access, :action => 'show', :resource => 'in_paymentx_payments', :role_definition_id => @role.id, :rank => 1,
            :sql_code => "")      
            
-      @cust = FactoryGirl.create(:kustomerx_customer)
-      @proj = FactoryGirl.create(:ext_construction_projectx_project, :customer_id => @cust.id)
-      @proj1 = FactoryGirl.create(:ext_construction_projectx_project, :name => 'a new name', :project_num => 'something new') #, :customer_id => @cust.id)
-      @contract = FactoryGirl.create(:simple_contractx_contract, :void => false, :last_updated_by_id => @u.id, :project_id => @proj.id)
-      @contract1 = FactoryGirl.create(:simple_contractx_contract, :void => false, :last_updated_by_id => @u.id, :project_id => @proj1.id)
+      @proj = FactoryGirl.create(:commonx_misc_definition, :for_which => 'project')
+      @contract = FactoryGirl.create(:commonx_misc_definition, :for_which => 'contract')
       
       visit '/'
       #save_and_open_page
       fill_in "login", :with => @u.login
       fill_in "password", :with => @u.password
       click_button 'Login'
+      
     end
     it "works! (now write some real specs)" do
       qs = FactoryGirl.create(:in_paymentx_payment, :last_updated_by_id => @u.id, :project_id => @proj.id)
       visit in_paymentx.payments_path
       expect(page).to have_content('Payments')
-      
-      visit in_paymentx.payments_path
       save_and_open_page
+      visit in_paymentx.payments_path
+      #save_and_open_page
       click_link('Edit')
       save_and_open_page
       expect(page).to have_content('Edit Payment')
-      
+      fill_in 'payment_paid_amount', with: 10
+      fill_in 'payment_brief_note', with: 'Edit brief note field'
+      click_button 'Save'
+      visit in_paymentx.payments_path
+      click_link('Edit')
+      expect(page).to have_content('Edit brief note field')
+           
       visit in_paymentx.payments_path(:project_id => @proj.id, :contract_id => @contract.id)
       click_link('New Payment')
-      save_and_open_page
+      #save_and_open_page
       expect(page).to have_content('New Payment')
+      fill_in 'payment_paid_amount', with: 10
+      fill_in 'payment_brief_note', with: 'Creating a new payment'
+      fill_in 'payment_received_date', with: Date.today
+      click_button 'Save'
+      visit in_paymentx.payments_path(:project_id => @proj.id, :contract_id => @contract.id)
+      expect(page).to have_content('Creating a new payment')
+      
+      
     end
   end
 end
