@@ -24,8 +24,9 @@ module InPaymentx
       @contract = FactoryGirl.create(:commonx_misc_definition, :for_which => 'contract')
       #@contract1 = FactoryGirl.create(:simple_contractx_contract, :void => false, :last_updated_by_id => @u.id, :project_id => @proj1.id)
       
-      session[:user_role_ids] = Authentify::UserPrivilegeHelper::UserPrivilege.new(@u.id).user_role_ids
+      session[:user_role_ids] = [@role.id] #Authentify::UserPrivilegeHelper::UserPrivilege.new(@u.id).user_role_ids
       session[:fort_token] = '123456789'
+      RequestStore.store[:current_token] = session[:fort_token]
     end
       
     render_views

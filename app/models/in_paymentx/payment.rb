@@ -1,5 +1,7 @@
 module InPaymentx
   class Payment < ActiveRecord::Base
+    default_scope {where(fort_token: RequestStore.store[:current_token])}
+    
     attr_accessor :project_name                
 
     belongs_to :last_updated_by, :class_name => 'Authentify::User'
