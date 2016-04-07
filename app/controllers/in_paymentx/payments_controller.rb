@@ -2,8 +2,8 @@ require_dependency "in_paymentx/application_controller"
 
 module InPaymentx
   class PaymentsController < ApplicationController
-    before_filter :require_employee
-    before_filter :load_parent_record
+    before_action :require_employee
+    before_action :load_parent_record
 
 
     def index
