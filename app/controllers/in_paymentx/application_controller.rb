@@ -7,12 +7,12 @@ module InPaymentx
     include Commonx::CommonxHelper
     include Searchx::SearchHelper
     
-    #before_filter :require_signin
-    before_filter :max_pagination
-    before_filter :check_access_right 
-    before_filter :load_session_variable, :only => [:new, :edit]  #for parent_record_id & parent_resource in check_access_right
-    after_filter :delete_session_variable, :only => [:create, :update]  #for parent_record_id & parent_resource in check_access_right
-    before_filter :view_in_config?
+    #before_action :require_signin
+    before_action :max_pagination
+    before_action :check_access_right 
+    before_action :load_session_variable, :only => [:new, :edit]  #for parent_record_id & parent_resource in check_access_right
+    after_action :delete_session_variable, :only => [:create, :update]  #for parent_record_id & parent_resource in check_access_right
+    before_action :view_in_config?
    
     protected
   
