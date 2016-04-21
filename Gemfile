@@ -11,7 +11,7 @@ gem "will_paginate"
 gem 'tzinfo-data' #, platforms: [:mingw_20, :mingw, :mswin]
 gem 'protected_attributes'  #for rails 4
 gem 'factory_girl_rails' #rails 4.2
-gem 'request_store'
+gem 'coffee-script-source', '1.8.0'
 
 gem 'authentify', :path => '../authentify'  #for rspec test
 gem 'commonx', :path => '../commonx'

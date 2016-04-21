@@ -1,6 +1,6 @@
 module InPaymentx
   class Payment < ActiveRecord::Base
-    default_scope {where(fort_token: RequestStore.store[:current_token])}
+    default_scope {where(fort_token: Thread.current[:fort_token])}
     
     attr_accessor :project_name                
 

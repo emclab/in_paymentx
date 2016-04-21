@@ -12,14 +12,14 @@ module InPaymentx
       @payments = @payments.where(:project_id => @project.id) if @project
       @payments = @payments.where(:contract_id => @contract.id) if @contract      
       @payments = @payments.page(params[:page]).per_page(@max_pagination)     
-      @erb_code = find_config_const('payment_index_view', 'in_paymentx')
+      @erb_code = find_config_const('payment_index_view', session[:fort_token], 'in_paymentx')
     end
 
 
     def new
       @title = t('New Payment')
       @payment = InPaymentx::Payment.new
-      @erb_code = find_config_const('payment_new_view', 'in_paymentx')
+      @erb_code = find_config_const('payment_new_view', session[:fort_token], 'in_paymentx')
     end
 
 
@@ -33,7 +33,7 @@ module InPaymentx
         #for render new when data error
         @contract = InPaymentx.contract_class.find_by_id(params[:payment][:contract_id]) if params[:payment].present? && params[:payment][:contract_id].present? 
         @project = InPaymentx.project_class.find_by_id(params[:payment][:project_id]) if params[:payment].present? && params[:payment][:project_id].present? 
-        @erb_code = find_config_const('payment_new_view', 'in_paymentx')
+        @erb_code = find_config_const('payment_new_view', session[:fort_token], 'in_paymentx')
         flash[:notice] = t('Data Error. Not Saved!')
         render 'new'
       end
@@ -43,7 +43,7 @@ module InPaymentx
       @title = t('Edit Payment')
       @payment = InPaymentx::Payment.find_by_id(params[:id])
       return nil if @payment.fort_token != session[:fort_token]
-      @erb_code = find_config_const('payment_edit_view', 'in_paymentx')
+      @erb_code = find_config_const('payment_edit_view', session[:fort_token], 'in_paymentx')
     end
 
     def update
@@ -53,7 +53,7 @@ module InPaymentx
       if @payment.update_attributes(edit_params)
         redirect_to URI.escape(SUBURI + "/view_handler?index=0&msg=Successfully Updated!")
       else
-        @erb_code = find_config_const('payment_edit_view', 'in_paymentx')
+        @erb_code = find_config_const('payment_edit_view', session[:fort_token], 'in_paymentx')
         flash[:notice] = t('Data Error. Not Updated!')
         render 'edit'
       end
@@ -62,7 +62,7 @@ module InPaymentx
     def show
       @title = t('Payment Info')
       @payment = InPaymentx::Payment.find_by_id(params[:id])
-      @erb_code = find_config_const('payment_show_view', 'in_paymentx')
+      @erb_code = find_config_const('payment_show_view', session[:fort_token], 'in_paymentx')
     end
 
     protected
