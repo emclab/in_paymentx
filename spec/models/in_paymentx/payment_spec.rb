@@ -57,16 +57,6 @@ module InPaymentx
       expect(p).not_to be_valid
     end
     
-    it "should take nil bank_acct id" do
-      p = FactoryGirl.build(:in_paymentx_payment, :bank_acct_id => nil)
-      expect(p).to be_valid
-    end
-    
-    it "should not have 0 bank_acct id" do
-      p = FactoryGirl.build(:in_paymentx_payment, :bank_acct_id => 0)
-      expect(p).not_to be_valid
-    end
-    
     it "should nil fort_token" do
       p = FactoryGirl.build(:in_paymentx_payment, :fort_token => nil)
       expect(p).not_to be_valid
