@@ -7,11 +7,11 @@ require "in_paymentx/version"
 Gem::Specification.new do |s|
   s.name        = "in_paymentx"
   s.version     = InPaymentx::VERSION
-  s.authors     = ["TODO: Your name"]
-  s.email       = ["TODO: Your email"]
-  s.homepage    = "TODO"
-  s.summary     = "TODO: Summary of InPaymentx."
-  s.description = "TODO: Description of InPaymentx."
+  s.authors     = ["Your name"]
+  s.email       = ["Your@email.com"]
+  s.homepage    = "http://home.com"
+  s.summary     = "Summary of InPaymentx."
+  s.description = "Description of InPaymentx."
 
   s.files = Dir["{app,config,db,lib}/**/*"] + ["MIT-LICENSE", "Rakefile", "README.rdoc"]
   s.test_files = Dir["test/**/*"]
