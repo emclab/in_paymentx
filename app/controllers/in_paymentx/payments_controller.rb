@@ -4,7 +4,7 @@ module InPaymentx
   class PaymentsController < ApplicationController
     before_action :require_employee
     before_action :load_parent_record
-
+    after_action :info_logger, :except => [:new, :edit, :event_action_result, :wf_edit_result, :search_results, :stats_results, :acct_summary_result]
 
     def index
       @title = t('Payments')

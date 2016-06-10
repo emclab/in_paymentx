@@ -60,6 +60,9 @@ RSpec.describe "LinkTests", type: :request do
       qs = FactoryGirl.create(:in_paymentx_payment, :last_updated_by_id => @u.id, :project_id => @proj.id)
       visit in_paymentx.payments_path
       expect(page).to have_content('Payments')
+      expect(Authentify::SysLog.all.count).to eq(1)
+      expect(Authentify::SysLog.all.first.resource).to eq('in_paymentx/payments')
+      expect(Authentify::SysLog.all.first.user_id).to eq(@u.id)
       save_and_open_page
       visit in_paymentx.payments_path
       #save_and_open_page
