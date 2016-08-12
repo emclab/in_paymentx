@@ -58,7 +58,7 @@ zh-CN:
   'Contract#'           : '合同#'
   Paid Amount           : '已付款额'
   Payment Via          : '支付方式'
-  Payment Amount        : '付款金额（￥）'
+  Payment Amount        : '收款金额（￥）'
   'Payment#'            : '支付#'
   Payment Description   : '收款说明'
   Received By           : '收款人'
