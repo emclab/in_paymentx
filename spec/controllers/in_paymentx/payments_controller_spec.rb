@@ -76,6 +76,7 @@ module InPaymentx
         qs = FactoryGirl.attributes_for(:in_paymentx_payment, :project_id => @proj.id, :contract_id => @contract.id)
         get 'create' , { :payment => qs, :project_id => @proj.id, :contract_id => @contract.id}
         expect(response).to redirect_to URI.escape(SUBURI + "/view_handler?index=0&msg=Successfully Saved!")
+
       end
       
       it "should render 'new' if data error" do
@@ -140,6 +141,29 @@ module InPaymentx
         expect(response).to be_success
       end
     end
+    
+    describe "GET 'destroy'" do
+      it "should destroy" do
+        user_access = FactoryGirl.create(:user_access, :action => 'destroy', :resource => 'in_paymentx_payments', :role_definition_id => @role.id, :rank => 1,
+        :sql_code => "")
+        session[:employee] = true
+        session[:user_id] = @u.id        
+        qs = FactoryGirl.create(:in_paymentx_payment, :project_id => @proj.id, :contract_id => @contract.id)
+        get 'destroy' , {:id => qs.id}
+        expect(response).to redirect_to URI.escape(SUBURI + "/view_handler?index=0&msg=Successfully Deleted!")
+      end
+    end
   
+    describe "GET 'payer_name_autocomplete'" do
+      it "should return success" do
+        user_access = FactoryGirl.create(:user_access, :action => 'payer_name_autocomplete', :resource => 'in_paymentx_payments', :role_definition_id => @role.id, :rank => 1,
+        :sql_code => "")
+        session[:employee] = true
+        session[:user_id] = @u.id        
+        qs = FactoryGirl.create(:in_paymentx_payment, :project_id => @proj.id, :contract_id => @contract.id)
+        get 'payer_name_autocomplete' 
+        expect(response).to be_success
+      end
+    end
   end
 end

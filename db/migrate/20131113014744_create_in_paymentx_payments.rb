@@ -11,8 +11,9 @@ class CreateInPaymentxPayments < ActiveRecord::Migration
       t.timestamps
       t.integer :project_id
       t.integer :category_id
-     t.integer :payer_id
+      t.integer :payer_id
       t.string :fort_token
+      t.string :payer_name
       
     end
     
@@ -24,5 +25,6 @@ class CreateInPaymentxPayments < ActiveRecord::Migration
     add_index :in_paymentx_payments, :category_id
     add_index :in_paymentx_payments, :payer_id
     add_index :in_paymentx_payments, :fort_token
+    add_index :in_paymentx_payments, :payer_name
   end
 end

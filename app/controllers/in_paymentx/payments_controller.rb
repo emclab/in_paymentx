@@ -64,6 +64,16 @@ module InPaymentx
       @payment = InPaymentx::Payment.find_by_id(params[:id])
       @erb_code = find_config_const('payment_show_view', session[:fort_token], 'in_paymentx')
     end
+    
+    def destroy
+      InPaymentx::Payment.delete(params[:id].to_i)
+      redirect_to URI.escape(SUBURI + "/view_handler?index=0&msg=Successfully Deleted!")
+    end
+
+    def payer_name_autocomplete
+      @payer_names = Payment.where("payer_name like ?", "%#{params[:term]}%").uniq.limit(16).order(:payer_name)
+      render json: @payer_names.map {|f| "#{f.payer_name}"}    
+    end
 
     protected
     
@@ -78,11 +88,11 @@ module InPaymentx
     private
     
     def new_params
-      params.require(:payment).permit(:paid_amount, :received_by_id, :brief_note, :received_date, :payment_via, :contract_id, :project_id)
+      params.require(:payment).permit(:paid_amount, :received_by_id, :brief_note, :received_date, :payment_via, :contract_id, :project_id, :payer_name)
     end
     
     def edit_params
-      params.require(:payment).permit(:paid_amount, :received_by_id, :brief_note, :received_date, :payment_via, :contract_id, :project_id)
+      params.require(:payment).permit(:paid_amount, :received_by_id, :brief_note, :received_date, :payment_via, :contract_id, :project_id, :payer_name)
     end
 
   end
